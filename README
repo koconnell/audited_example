@@ -1,0 +1,11 @@
+Run steps:
+
+1. rvm install ruby-1.9.3 (if it's not installed)
+
+2. rvm use ruby-1.9.3
+
+3. bundle install
+
+4. rails server
+
+5. Go to localhost:3000 in a browser
