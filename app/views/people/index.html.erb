@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+
+<h1>Listing people</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Height</th>
+    <th>Weight</th>
+    <th></th>
+  </tr>
+
+<% @people.each do |person| %>
+  <tr>
+    <td><%= person.name %></td>
+    <td><%= person.height %></td>
+    <td><%= person.weight %></td>
+    <td><%= link_to 'Show', person %></td>
+    <td><%= link_to 'Edit', edit_person_path(person) %></td>
+    <td><%= link_to 'Destroy', person, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Person', new_person_path %>
+
+<br />
+<br />
+  
+  <button id="show_audit">Show History</button>
+  <button id="hide_audit">Hide History</button> <br />
+
+  <div id="audit_info">
+  
+   <table>
+     <tr>
+      <th>Name</th>
+      <th>Height</th>
+      <th>Weight</th>
+      <th>Last Action</th>
+      <th>Last Change</th>
+     </tr>
+
+    <% @people.each do |person| %>
+      <tr>
+       <td><%= person.name %></td>
+       <td><%= person.height %></td>
+       <td><%= person.weight %></td>
+       <td><% audit = person.audits.last %>
+          <%= audit.action %>
+       </td>
+       <td><% audit = person.audits.last %>
+          <%= audit.audited_changes %>
+       </td>
+      </tr>
+     <% end %>
+
+   </table>
+
+  </div>
+
+<script>
+
+$(document).ready(function()
+    {
+        $("div").hide();
+    }
+);
+
+$("#show_audit").click(function () {
+  $("#audit_info").show();
+});
+
+$("#hide_audit").click(function () {
+  $("#audit_info").hide(800);
+});
+
+</script>
+
+</body>
+</html>
